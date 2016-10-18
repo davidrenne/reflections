@@ -37,13 +37,13 @@ func GetField(obj interface{}, name string) (interface{}, error) {
 
 func GetFieldAsBool(obj interface{}, name string) (bool, error) {
 	if !hasValidType(obj, []reflect.Kind{reflect.Struct, reflect.Ptr}) {
-		return nil, errors.New("Cannot use GetField on a non-struct interface")
+		return false, errors.New("Cannot use GetField on a non-struct interface")
 	}
 
 	objValue := reflectValue(obj)
 	field := objValue.FieldByName(name)
 	if !field.IsValid() {
-		return nil, fmt.Errorf("No such field: %s in obj", name)
+		return false, fmt.Errorf("No such field: %s in obj", name)
 	}
 
 	return field.Bool(), nil

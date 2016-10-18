@@ -35,6 +35,104 @@ func GetField(obj interface{}, name string) (interface{}, error) {
 	return field.Interface(), nil
 }
 
+func GetFieldAsBool(obj interface{}, name string) (bool, error) {
+	if !hasValidType(obj, []reflect.Kind{reflect.Struct, reflect.Ptr}) {
+		return nil, errors.New("Cannot use GetField on a non-struct interface")
+	}
+
+	objValue := reflectValue(obj)
+	field := objValue.FieldByName(name)
+	if !field.IsValid() {
+		return nil, fmt.Errorf("No such field: %s in obj", name)
+	}
+
+	return field.Bool(), nil
+}
+
+func GetFieldAsComplex(obj interface{}, name string) (complex128, error) {
+	if !hasValidType(obj, []reflect.Kind{reflect.Struct, reflect.Ptr}) {
+		return nil, errors.New("Cannot use GetField on a non-struct interface")
+	}
+
+	objValue := reflectValue(obj)
+	field := objValue.FieldByName(name)
+	if !field.IsValid() {
+		return nil, fmt.Errorf("No such field: %s in obj", name)
+	}
+
+	return field.Complex(), nil
+}
+
+func GetFieldAsFloat(obj interface{}, name string) (float64, error) {
+	if !hasValidType(obj, []reflect.Kind{reflect.Struct, reflect.Ptr}) {
+		return nil, errors.New("Cannot use GetField on a non-struct interface")
+	}
+
+	objValue := reflectValue(obj)
+	field := objValue.FieldByName(name)
+	if !field.IsValid() {
+		return nil, fmt.Errorf("No such field: %s in obj", name)
+	}
+
+	return field.Float(), nil
+}
+
+func GetFieldAsString(obj interface{}, name string) (string, error) {
+	if !hasValidType(obj, []reflect.Kind{reflect.Struct, reflect.Ptr}) {
+		return nil, errors.New("Cannot use GetField on a non-struct interface")
+	}
+
+	objValue := reflectValue(obj)
+	field := objValue.FieldByName(name)
+	if !field.IsValid() {
+		return nil, fmt.Errorf("No such field: %s in obj", name)
+	}
+
+	return field.String(), nil
+}
+
+func GetFieldAsInt64(obj interface{}, name string) (uint64, error) {
+	if !hasValidType(obj, []reflect.Kind{reflect.Struct, reflect.Ptr}) {
+		return nil, errors.New("Cannot use GetField on a non-struct interface")
+	}
+
+	objValue := reflectValue(obj)
+	field := objValue.FieldByName(name)
+	if !field.IsValid() {
+		return nil, fmt.Errorf("No such field: %s in obj", name)
+	}
+
+	return field.Uint(), nil
+}
+
+func GetFieldAsUInt(obj interface{}, name string) (uintptr, error) {
+	if !hasValidType(obj, []reflect.Kind{reflect.Struct, reflect.Ptr}) {
+		return nil, errors.New("Cannot use GetField on a non-struct interface")
+	}
+
+	objValue := reflectValue(obj)
+	field := objValue.FieldByName(name)
+	if !field.IsValid() {
+		return nil, fmt.Errorf("No such field: %s in obj", name)
+	}
+
+	return field.UnsafeAddr(), nil
+}
+
+func GetFieldAsInt(obj interface{}, name string) (int, error) {
+	if !hasValidType(obj, []reflect.Kind{reflect.Struct, reflect.Ptr}) {
+		return nil, errors.New("Cannot use GetField on a non-struct interface")
+	}
+
+	objValue := reflectValue(obj)
+	field := objValue.FieldByName(name)
+	if !field.IsValid() {
+		return nil, fmt.Errorf("No such field: %s in obj", name)
+	}
+
+	return field.Int(), nil
+}
+
 // GetFieldKind returns the kind of the provided obj field. obj can whether
 // be a structure or pointer to structure.
 func GetFieldKind(obj interface{}, name string) (reflect.Kind, error) {

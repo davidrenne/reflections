@@ -35,16 +35,15 @@ func GetField(obj interface{}, name string) (interface{}, error) {
 	return field.Interface(), nil
 }
 
-
 func GetFieldAsBool(obj interface{}, name string) (bool, error) {
 	if !hasValidType(obj, []reflect.Kind{reflect.Struct, reflect.Ptr}) {
-		return false, errors.New("Cannot use GetField on a non-struct interface")
+		return nil, errors.New("Cannot use GetField on a non-struct interface")
 	}
 
 	objValue := reflectValue(obj)
 	field := objValue.FieldByName(name)
 	if !field.IsValid() {
-		return false, fmt.Errorf("No such field: %s in obj", name)
+		return nil, fmt.Errorf("No such field: %s in obj", name)
 	}
 
 	return field.Bool(), nil
@@ -92,7 +91,7 @@ func GetFieldAsString(obj interface{}, name string) (string, error) {
 	return field.String(), nil
 }
 
-func GetFieldAsInt64(obj interface{}, name string) (uint64, error) {
+func GetFieldAsUInt64(obj interface{}, name string) (uint64, error) {
 	if !hasValidType(obj, []reflect.Kind{reflect.Struct, reflect.Ptr}) {
 		return 0, errors.New("Cannot use GetField on a non-struct interface")
 	}
@@ -120,7 +119,7 @@ func GetFieldAsUInt(obj interface{}, name string) (uintptr, error) {
 	return field.UnsafeAddr(), nil
 }
 
-func GetFieldAsInt(obj interface{}, name string) (int, error) {
+func GetFieldAsInt(obj interface{}, name string) (int64, error) {
 	if !hasValidType(obj, []reflect.Kind{reflect.Struct, reflect.Ptr}) {
 		return 0, errors.New("Cannot use GetField on a non-struct interface")
 	}
@@ -132,23 +131,6 @@ func GetFieldAsInt(obj interface{}, name string) (int, error) {
 	}
 
 	return field.Int(), nil
-}
-
-// GetFieldKind returns the kind of the provided obj field. obj can whether
-// be a structure or pointer to structure.
-func GetFieldKind(obj interface{}, name string) (reflect.Kind, error) {
-	if !hasValidType(obj, []reflect.Kind{reflect.Struct, reflect.Ptr}) {
-		return reflect.Invalid, errors.New("Cannot use GetField on a non-struct interface")
-	}
-
-	objValue := reflectValue(obj)
-	field := objValue.FieldByName(name)
-
-	if !field.IsValid() {
-		return reflect.Invalid, fmt.Errorf("No such field: %s in obj", name)
-	}
-
-	return field.Type().Kind(), nil
 }
 
 // GetFieldType returns the kind of the provided obj field. obj can whether

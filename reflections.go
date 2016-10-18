@@ -35,6 +35,7 @@ func GetField(obj interface{}, name string) (interface{}, error) {
 	return field.Interface(), nil
 }
 
+
 func GetFieldAsBool(obj interface{}, name string) (bool, error) {
 	if !hasValidType(obj, []reflect.Kind{reflect.Struct, reflect.Ptr}) {
 		return nil, errors.New("Cannot use GetField on a non-struct interface")
@@ -51,13 +52,13 @@ func GetFieldAsBool(obj interface{}, name string) (bool, error) {
 
 func GetFieldAsComplex(obj interface{}, name string) (complex128, error) {
 	if !hasValidType(obj, []reflect.Kind{reflect.Struct, reflect.Ptr}) {
-		return nil, errors.New("Cannot use GetField on a non-struct interface")
+		return (0+0i), errors.New("Cannot use GetField on a non-struct interface")
 	}
 
 	objValue := reflectValue(obj)
 	field := objValue.FieldByName(name)
 	if !field.IsValid() {
-		return nil, fmt.Errorf("No such field: %s in obj", name)
+		return (0+0i), fmt.Errorf("No such field: %s in obj", name)
 	}
 
 	return field.Complex(), nil
@@ -65,13 +66,13 @@ func GetFieldAsComplex(obj interface{}, name string) (complex128, error) {
 
 func GetFieldAsFloat(obj interface{}, name string) (float64, error) {
 	if !hasValidType(obj, []reflect.Kind{reflect.Struct, reflect.Ptr}) {
-		return nil, errors.New("Cannot use GetField on a non-struct interface")
+		return 0, errors.New("Cannot use GetField on a non-struct interface")
 	}
 
 	objValue := reflectValue(obj)
 	field := objValue.FieldByName(name)
 	if !field.IsValid() {
-		return nil, fmt.Errorf("No such field: %s in obj", name)
+		return 0, fmt.Errorf("No such field: %s in obj", name)
 	}
 
 	return field.Float(), nil
@@ -79,13 +80,13 @@ func GetFieldAsFloat(obj interface{}, name string) (float64, error) {
 
 func GetFieldAsString(obj interface{}, name string) (string, error) {
 	if !hasValidType(obj, []reflect.Kind{reflect.Struct, reflect.Ptr}) {
-		return nil, errors.New("Cannot use GetField on a non-struct interface")
+		return "", errors.New("Cannot use GetField on a non-struct interface")
 	}
 
 	objValue := reflectValue(obj)
 	field := objValue.FieldByName(name)
 	if !field.IsValid() {
-		return nil, fmt.Errorf("No such field: %s in obj", name)
+		return "", fmt.Errorf("No such field: %s in obj", name)
 	}
 
 	return field.String(), nil
@@ -93,13 +94,13 @@ func GetFieldAsString(obj interface{}, name string) (string, error) {
 
 func GetFieldAsInt64(obj interface{}, name string) (uint64, error) {
 	if !hasValidType(obj, []reflect.Kind{reflect.Struct, reflect.Ptr}) {
-		return nil, errors.New("Cannot use GetField on a non-struct interface")
+		return 0, errors.New("Cannot use GetField on a non-struct interface")
 	}
 
 	objValue := reflectValue(obj)
 	field := objValue.FieldByName(name)
 	if !field.IsValid() {
-		return nil, fmt.Errorf("No such field: %s in obj", name)
+		return 0, fmt.Errorf("No such field: %s in obj", name)
 	}
 
 	return field.Uint(), nil
@@ -107,13 +108,13 @@ func GetFieldAsInt64(obj interface{}, name string) (uint64, error) {
 
 func GetFieldAsUInt(obj interface{}, name string) (uintptr, error) {
 	if !hasValidType(obj, []reflect.Kind{reflect.Struct, reflect.Ptr}) {
-		return nil, errors.New("Cannot use GetField on a non-struct interface")
+		return 0, errors.New("Cannot use GetField on a non-struct interface")
 	}
 
 	objValue := reflectValue(obj)
 	field := objValue.FieldByName(name)
 	if !field.IsValid() {
-		return nil, fmt.Errorf("No such field: %s in obj", name)
+		return 0, fmt.Errorf("No such field: %s in obj", name)
 	}
 
 	return field.UnsafeAddr(), nil
@@ -121,13 +122,13 @@ func GetFieldAsUInt(obj interface{}, name string) (uintptr, error) {
 
 func GetFieldAsInt(obj interface{}, name string) (int, error) {
 	if !hasValidType(obj, []reflect.Kind{reflect.Struct, reflect.Ptr}) {
-		return nil, errors.New("Cannot use GetField on a non-struct interface")
+		return 0, errors.New("Cannot use GetField on a non-struct interface")
 	}
 
 	objValue := reflectValue(obj)
 	field := objValue.FieldByName(name)
 	if !field.IsValid() {
-		return nil, fmt.Errorf("No such field: %s in obj", name)
+		return 0, fmt.Errorf("No such field: %s in obj", name)
 	}
 
 	return field.Int(), nil

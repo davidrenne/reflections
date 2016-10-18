@@ -26,7 +26,7 @@ func GetField(obj interface{}, name string) (interface{}, error) {
 		return nil, errors.New("Cannot use GetField on a non-struct interface")
 	}
 
-	objValue := reflectValue(obj)
+	objValue := ReflectValue(obj)
 	field := objValue.FieldByName(name)
 	if !field.IsValid() {
 		return nil, fmt.Errorf("No such field: %s in obj", name)
@@ -40,7 +40,7 @@ func GetFieldAsBool(obj interface{}, name string) (bool, error) {
 		return false, errors.New("Cannot use GetField on a non-struct interface")
 	}
 
-	objValue := reflectValue(obj)
+	objValue := ReflectValue(obj)
 	field := objValue.FieldByName(name)
 	if !field.IsValid() {
 		return false, fmt.Errorf("No such field: %s in obj", name)
@@ -54,7 +54,7 @@ func GetFieldAsComplex(obj interface{}, name string) (complex128, error) {
 		return (0+0i), errors.New("Cannot use GetField on a non-struct interface")
 	}
 
-	objValue := reflectValue(obj)
+	objValue := ReflectValue(obj)
 	field := objValue.FieldByName(name)
 	if !field.IsValid() {
 		return (0+0i), fmt.Errorf("No such field: %s in obj", name)
@@ -68,7 +68,7 @@ func GetFieldAsFloat(obj interface{}, name string) (float64, error) {
 		return 0, errors.New("Cannot use GetField on a non-struct interface")
 	}
 
-	objValue := reflectValue(obj)
+	objValue := ReflectValue(obj)
 	field := objValue.FieldByName(name)
 	if !field.IsValid() {
 		return 0, fmt.Errorf("No such field: %s in obj", name)
@@ -82,7 +82,7 @@ func GetFieldAsString(obj interface{}, name string) (string, error) {
 		return "", errors.New("Cannot use GetField on a non-struct interface")
 	}
 
-	objValue := reflectValue(obj)
+	objValue := ReflectValue(obj)
 	field := objValue.FieldByName(name)
 	if !field.IsValid() {
 		return "", fmt.Errorf("No such field: %s in obj", name)
@@ -96,7 +96,7 @@ func GetFieldAsUInt64(obj interface{}, name string) (uint64, error) {
 		return 0, errors.New("Cannot use GetField on a non-struct interface")
 	}
 
-	objValue := reflectValue(obj)
+	objValue := ReflectValue(obj)
 	field := objValue.FieldByName(name)
 	if !field.IsValid() {
 		return 0, fmt.Errorf("No such field: %s in obj", name)
@@ -110,7 +110,7 @@ func GetFieldAsUInt(obj interface{}, name string) (uintptr, error) {
 		return 0, errors.New("Cannot use GetField on a non-struct interface")
 	}
 
-	objValue := reflectValue(obj)
+	objValue := ReflectValue(obj)
 	field := objValue.FieldByName(name)
 	if !field.IsValid() {
 		return 0, fmt.Errorf("No such field: %s in obj", name)
@@ -124,7 +124,7 @@ func GetFieldAsInt(obj interface{}, name string) (int64, error) {
 		return 0, errors.New("Cannot use GetField on a non-struct interface")
 	}
 
-	objValue := reflectValue(obj)
+	objValue := ReflectValue(obj)
 	field := objValue.FieldByName(name)
 	if !field.IsValid() {
 		return 0, fmt.Errorf("No such field: %s in obj", name)
@@ -140,7 +140,7 @@ func GetFieldType(obj interface{}, name string) (string, error) {
 		return "", errors.New("Cannot use GetField on a non-struct interface")
 	}
 
-	objValue := reflectValue(obj)
+	objValue := ReflectValue(obj)
 	field := objValue.FieldByName(name)
 
 	if !field.IsValid() {
@@ -157,7 +157,7 @@ func GetFieldTag(obj interface{}, fieldName, tagKey string) (string, error) {
 		return "", errors.New("Cannot use GetField on a non-struct interface")
 	}
 
-	objValue := reflectValue(obj)
+	objValue := ReflectValue(obj)
 	objType := objValue.Type()
 
 	field, ok := objType.FieldByName(fieldName)
@@ -207,7 +207,7 @@ func HasField(obj interface{}, name string) (bool, error) {
 		return false, errors.New("Cannot use GetField on a non-struct interface")
 	}
 
-	objValue := reflectValue(obj)
+	objValue := ReflectValue(obj)
 	objType := objValue.Type()
 	field, ok := objType.FieldByName(name)
 	if !ok || !isExportableField(field) {
@@ -234,7 +234,7 @@ func fields(obj interface{}, deep bool) ([]string, error) {
 		return nil, errors.New("Cannot use GetField on a non-struct interface")
 	}
 
-	objValue := reflectValue(obj)
+	objValue := ReflectValue(obj)
 	objType := objValue.Type()
 	fieldsCount := objType.NumField()
 
@@ -275,7 +275,7 @@ func items(obj interface{}, deep bool) (map[string]interface{}, error) {
 		return nil, errors.New("Cannot use GetField on a non-struct interface")
 	}
 
-	objValue := reflectValue(obj)
+	objValue := ReflectValue(obj)
 	objType := objValue.Type()
 	fieldsCount := objType.NumField()
 
@@ -319,7 +319,7 @@ func tags(obj interface{}, key string, deep bool) (map[string]string, error) {
 		return nil, errors.New("Cannot use GetField on a non-struct interface")
 	}
 
-	objValue := reflectValue(obj)
+	objValue := ReflectValue(obj)
 	objType := objValue.Type()
 	fieldsCount := objType.NumField()
 
@@ -346,7 +346,7 @@ func tags(obj interface{}, key string, deep bool) (map[string]string, error) {
 	return allTags, nil
 }
 
-func reflectValue(obj interface{}) reflect.Value {
+func ReflectValue(obj interface{}) reflect.Value {
 	var val reflect.Value
 
 	if reflect.TypeOf(obj).Kind() == reflect.Ptr {

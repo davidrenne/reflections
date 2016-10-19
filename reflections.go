@@ -358,6 +358,11 @@ func ReflectValue(obj interface{}) reflect.Value {
 	return val
 }
 
+func ReflectKind(obj interface{}) string {
+	kind := ReflectValue(obj)
+	return kind.Kind().String()
+}
+
 func isExportableField(field reflect.StructField) bool {
 	// PkgPath is empty for exported fields.
 	return field.PkgPath == ""

@@ -19,6 +19,22 @@ import (
 	"reflect"
 )
 
+func GetInterfaceSlice(obj interface{}) ([]interface{}, error) {
+	s := reflect.ValueOf(obj)
+	if s.Kind() != reflect.Slice {
+		err := errors.New("Failed to cast interface to []interface{}.")
+		objArray := make([]interface{}, 0)
+		return objArray, err
+	}
+
+	objArray := make([]interface{}, s.Len())
+
+	for i := 0; i < s.Len(); i++ {
+		objArray[i] = s.Index(i).Interface()
+	}
+	return objArray, nil
+}
+
 // GetField returns the value of the provided obj field. obj can whether
 // be a structure or pointer to structure.
 func GetField(obj interface{}, name string) (interface{}, error) {

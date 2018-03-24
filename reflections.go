@@ -21,6 +21,12 @@ import (
 
 func GetInterfaceSlice(obj interface{}) ([]interface{}, error) {
 	s := reflect.ValueOf(obj)
+	
+	if s.Kind() == reflect.Ptr {
+		// Remove pointer to get to value of slice
+		s = reflect.Indirect(reflect.ValueOf(obj))
+	}
+	
 	if s.Kind() != reflect.Slice {
 		err := errors.New("Failed to cast interface to []interface{}.")
 		objArray := make([]interface{}, 0)
